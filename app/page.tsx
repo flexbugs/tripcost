@@ -7,11 +7,20 @@ export default function Home() {
       <div id="logo">Logo</div>
       <div id="controls">
         <div id="trip-distance">
-          <TextField label="Trip distance (km)"></TextField>
+          <TextField
+            label="Trip distance (km)"
+            slotProps={{ htmlInput: { type: "number" } }}
+          ></TextField>
           <FormControlLabel control={<Switch />} label="Two-way trip" />
         </div>
-        <TextField label="Km/liter"></TextField>
-        <TextField label="Fuel price (kr/liter)"></TextField>
+        <TextField
+          label="Km/liter"
+          slotProps={{ htmlInput: { type: "number" } }}
+        ></TextField>
+        <TextField
+          label="Fuel price (kr/liter)"
+          slotProps={{ htmlInput: { type: "number" } }}
+        ></TextField>
         <Button variant="contained">Calculate cost</Button>
         <div id="price">156 DKK</div>
       </div>
