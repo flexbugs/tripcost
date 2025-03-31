@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 
 export default function Home() {
   return (
-    <div>
+    <>
       <div id="logo">Logo</div>
       <div id="controls">
         <div id="trip-distance">
@@ -22,8 +22,8 @@ export default function Home() {
           slotProps={{ htmlInput: { type: "number" } }}
         ></TextField>
         <Button variant="contained">Calculate cost</Button>
-        <div id="price">156 DKK</div>
       </div>
-    </div>
+      <div id="price">156 DKK</div>
+    </>
   );
 }
