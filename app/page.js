@@ -28,11 +28,9 @@ export default function Home() {
   }
 
   function handleCalcPrice() {
-    setPrice(
-      twoWayTrip
-        ? 2 * (distance / fuelEfficency) * fuelPrice
-        : (distance / fuelEfficency) * fuelPrice
-    );
+    const tripPrice = Number((distance / fuelEfficency) * fuelPrice).toFixed(2);
+
+    setPrice(twoWayTrip ? 2 * tripPrice : tripPrice);
   }
 
   return (
@@ -71,7 +69,7 @@ export default function Home() {
         <Fuel
           onFuelEfficiencyChange={handleFuelEfficiencyChange}
           onFuelPriceChange={handleFuelPriceChange}
-        ></Fuel>
+        />
         <CalcPriceButton onCalcPrice={handleCalcPrice} />
         <Box id="price" sx={{ height: 100 }}>
           {price} DKK
