@@ -2,19 +2,24 @@
 
 import { Box, Switch, TextField } from "@mui/material";
 import Button from "@mui/material/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [distance, setDistance] = useState(0);
+  const [twoWayTrip, setTwoWayTrip] = useState(false);
   const [price, setPrice] = useState(0);
-  const [checked, setChecked] = useState(false);
 
   function handleOnFieldChange(value) {
-    setPrice(value);
+    setDistance(value);
   }
 
   function handleOnSwitchChange(event) {
-    setChecked(event.target.checked);
+    setTwoWayTrip(event.target.checked);
   }
+
+  useEffect(() => {
+    setPrice(twoWayTrip ? distance * 2 : distance);
+  }, [distance, twoWayTrip]);
 
   return (
     <Box sx={{ 
@@ -29,7 +34,7 @@ export default function Home() {
         bgcolor: "lightgrey",
         }}>Logo</Box>
       <Box id="content">
-        <Trip onFieldChange={handleOnFieldChange} checked={checked} onSwitchChange={handleOnSwitchChange}/>
+        <Trip onFieldChange={handleOnFieldChange} checked={twoWayTrip} onSwitchChange={handleOnSwitchChange}/>
         <Button type="submit" variant="contained">Submit</Button>
         <Box id="price" sx={{ height: 100 }}>{price} DKK</Box>
       </Box>
@@ -37,7 +42,7 @@ export default function Home() {
   );
 }
 
-function Trip({ onFieldChange, checked, onSwitchChange }) {
+function Trip({ onFieldChange, twoWayTrip, onSwitchChange }) {
   return (
     <Box id="trip">
       <TextField
@@ -46,7 +51,7 @@ function Trip({ onFieldChange, checked, onSwitchChange }) {
         slotProps={{ htmlInput: { type: "number" } }}
       ></TextField>
       <Switch 
-        checked={checked}
+        checked={twoWayTrip}
         onChange={onSwitchChange}
       ></Switch>
     </Box>
