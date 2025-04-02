@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import { Box, Switch, TextField } from "@mui/material";
+import { Box, FormControlLabel, Switch, TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
 
@@ -13,7 +13,7 @@ export default function Home() {
     setDistance(value);
   }
 
-  function handleOnSwitchChange(event) {
+  function handleTwoWayTripChange(event) {
     setTwoWayTrip(event.target.checked);
   }
 
@@ -22,38 +22,65 @@ export default function Home() {
   }, [distance, twoWayTrip]);
 
   return (
-    <Box sx={{ 
-      display: "flex", 
-      flexDirection: "column",
-      gap: 2,
-      maxWidth: 300,
-      justifyContent: "center", 
-    }}>
-      <Box id="logo" sx={{ 
-        height: 100,
-        bgcolor: "lightgrey",
-        }}>Logo</Box>
-      <Box id="content">
-        <Trip onFieldChange={handleOnFieldChange} checked={twoWayTrip} onSwitchChange={handleOnSwitchChange}/>
-        <Button type="submit" variant="contained">Submit</Button>
-        <Box id="price" sx={{ height: 100 }}>{price} DKK</Box>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 4,
+        maxWidth: 412,
+        justifyContent: "center",
+        padding: 2,
+      }}
+    >
+      <Box
+        id="logo"
+        sx={{
+          height: 100,
+          bgcolor: "lightgrey",
+        }}
+      >
+        Logo
+      </Box>
+      <Box
+        id="content"
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 4,
+        }}
+      >
+        <Trip
+          onDistanceChange={handleOnFieldChange}
+          checked={twoWayTrip}
+          onTwoWayTripChange={handleTwoWayTripChange}
+        />
+        <Button type="submit" variant="contained">
+          Submit
+        </Button>
+        <Box id="price" sx={{ height: 100 }}>
+          {price} DKK
+        </Box>
       </Box>
     </Box>
   );
 }
 
-function Trip({ onFieldChange, twoWayTrip, onSwitchChange }) {
+function Trip({ onDistanceChange, twoWayTrip, onTwoWayTripChange }) {
   return (
     <Box id="trip">
       <TextField
-        onChange={(e) => {onFieldChange(e.target.value)}}
         label="Trip distance (km)"
+        onChange={(e) => {
+          onDistanceChange(e.target.value);
+        }}
         slotProps={{ htmlInput: { type: "number" } }}
       ></TextField>
-      <Switch 
-        checked={twoWayTrip}
-        onChange={onSwitchChange}
-      ></Switch>
+      <FormControlLabel
+        control={
+          <Switch checked={twoWayTrip} onChange={onTwoWayTripChange}></Switch>
+        }
+        label="Two-way trip"
+      ></FormControlLabel>
     </Box>
   );
 }
