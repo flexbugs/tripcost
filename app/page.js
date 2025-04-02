@@ -7,9 +7,11 @@ import { useState } from "react";
 export default function Home() {
   const [distance, setDistance] = useState(0);
   const [twoWayTrip, setTwoWayTrip] = useState(false);
+  const [fuelEfficency, setfuelEfficency] = useState(0);
+  const [fuelPrice, setfuelPrice] = useState(0);
   const [price, setPrice] = useState(0);
 
-  function handleOnFieldChange(value) {
+  function handleOnDistanceChange(value) {
     setDistance(value);
   }
 
@@ -17,8 +19,20 @@ export default function Home() {
     setTwoWayTrip(event.target.checked);
   }
 
+  function handleFuelEfficiencyChange(value) {
+    setfuelEfficency(value);
+  }
+
+  function handleFuelPriceChange(value) {
+    setfuelPrice(value);
+  }
+
   function handleCalcPrice() {
-    setPrice(twoWayTrip ? distance * 2 : distance);
+    setPrice(
+      twoWayTrip
+        ? 2 * (distance / fuelEfficency) * fuelPrice
+        : (distance / fuelEfficency) * fuelPrice
+    );
   }
 
   return (
@@ -50,15 +64,41 @@ export default function Home() {
         }}
       >
         <Trip
-          onDistanceChange={handleOnFieldChange}
+          onDistanceChange={handleOnDistanceChange}
           checked={twoWayTrip}
           onTwoWayTripChange={handleTwoWayTripChange}
         />
+        <Fuel
+          onFuelEfficiencyChange={handleFuelEfficiencyChange}
+          onFuelPriceChange={handleFuelPriceChange}
+        ></Fuel>
         <CalcPriceButton onCalcPrice={handleCalcPrice} />
         <Box id="price" sx={{ height: 100 }}>
           {price} DKK
         </Box>
       </Box>
+    </Box>
+  );
+}
+
+function Fuel({ onFuelEfficiencyChange, onFuelPriceChange }) {
+  return (
+    <Box id="fuel">
+      <TextField
+        label="Fuel efficiency (km/liter)"
+        onChange={(e) => {
+          onFuelEfficiencyChange(e.target.value);
+        }}
+        slotProps={{ htmlInput: { type: "number" } }}
+      ></TextField>
+
+      <TextField
+        label="Fuel price (kr/liter)"
+        onChange={(e) => {
+          onFuelPriceChange(e.target.value);
+        }}
+        slotProps={{ htmlInput: { type: "number" } }}
+      ></TextField>
     </Box>
   );
 }
@@ -73,6 +113,7 @@ function Trip({ onDistanceChange, twoWayTrip, onTwoWayTripChange }) {
         }}
         slotProps={{ htmlInput: { type: "number" } }}
       ></TextField>
+
       <FormControlLabel
         control={
           <Checkbox
