@@ -1,8 +1,8 @@
 "use client";
 
-import { Box, FormControlLabel, Switch, TextField } from "@mui/material";
+import { Box, FormControlLabel, Checkbox, TextField } from "@mui/material";
 import Button from "@mui/material/Button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function Home() {
   const [distance, setDistance] = useState(0);
@@ -17,9 +17,9 @@ export default function Home() {
     setTwoWayTrip(event.target.checked);
   }
 
-  useEffect(() => {
+  function handleCalcPrice() {
     setPrice(twoWayTrip ? distance * 2 : distance);
-  }, [distance, twoWayTrip]);
+  }
 
   return (
     <Box
@@ -54,9 +54,7 @@ export default function Home() {
           checked={twoWayTrip}
           onTwoWayTripChange={handleTwoWayTripChange}
         />
-        <Button type="submit" variant="contained">
-          Submit
-        </Button>
+        <CalcPriceButton onCalcPrice={handleCalcPrice} />
         <Box id="price" sx={{ height: 100 }}>
           {price} DKK
         </Box>
@@ -77,10 +75,21 @@ function Trip({ onDistanceChange, twoWayTrip, onTwoWayTripChange }) {
       ></TextField>
       <FormControlLabel
         control={
-          <Switch checked={twoWayTrip} onChange={onTwoWayTripChange}></Switch>
+          <Checkbox
+            checked={twoWayTrip}
+            onChange={onTwoWayTripChange}
+          ></Checkbox>
         }
         label="Two-way trip"
       ></FormControlLabel>
     </Box>
+  );
+}
+
+function CalcPriceButton({ onCalcPrice }) {
+  return (
+    <Button variant="contained" onClick={onCalcPrice}>
+      Calculate price
+    </Button>
   );
 }
