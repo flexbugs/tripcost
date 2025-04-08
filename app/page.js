@@ -102,7 +102,7 @@ function Trip({ onDistanceChange, twoWayTrip, onTwoWayTripChange }) {
 
 function CalcPriceButton({ onCalcPrice }) {
 	return (
-		<Button variant="contained" onClick={onCalcPrice}>
+		<Button variant="contained" size="large" onClick={onCalcPrice}>
 			Calculate price
 		</Button>
 	);
