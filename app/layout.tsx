@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import * as React from "react";
-// import CssBaseline from "@mui/material/CssBaseline";
+import CssBaseline from "@mui/material/CssBaseline";
+import Container from "@mui/material/Container";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,8 +17,10 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
-				{/* <CssBaseline /> */}
-				{children}
+				<CssBaseline />
+				<Container maxWidth="sm" id="outer-container" className="col">
+					{children}
+				</Container>
 			</body>
 		</html>
 	);
