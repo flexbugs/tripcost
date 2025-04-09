@@ -6,43 +6,37 @@ import { useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
 
 export default function Home() {
-	const [distance, setDistance] = useState(0);
-	const [twoWayTrip, setTwoWayTrip] = useState(false);
-	const [fuelEfficency, setfuelEfficency] = useState(0);
-	const [fuelPrice, setfuelPrice] = useState(0);
+	const [formData, setFormData] = useState({
+		distance: "",
+		twoWayTrip: false,
+		fuelEfficiency: "",
+		fuelPrice: "",
+	});
 	const [price, setPrice] = useState(0);
 
-	function handleOnDistanceChange(value) {
-		setDistance(value);
+	function handleInputChange(e) {
+		const { name, type, value, checked } = e.target;
+		setFormData({
+			...formData,
+			// handle both checkbox and field inputs
+			[name]: type === "checkbox" ? checked : value,
+		});
 	}
 
-	function handleTwoWayTripChange(event) {
-		setTwoWayTrip(event.target.checked);
-	}
-
-	function handleFuelEfficiencyChange(value) {
-		setfuelEfficency(value);
-	}
-
-	function handleFuelPriceChange(value) {
-		setfuelPrice(value);
-	}
-
-	function handleSubmit() {
+	function handleSubmit(event) {
+		event.preventDefault();
 		/* 
 		Check if all fields are filled and have valid values (all filled)
 		(distance, fuel efficiency, fuel price: 1 or higher value)
-		If they are, display result.
 		If not: 
 		display error snackbar and
 		display error on erroneous fields
 		*/
-	}
+		const tripPrice = Number(
+			(formData.distance / formData.fuelEfficiency) * formData.fuelPrice
+		).toFixed(2);
 
-	function handleCalcPrice() {
-		const tripPrice = Number((distance / fuelEfficency) * fuelPrice).toFixed(2);
-
-		setPrice(twoWayTrip ? 2 * tripPrice : tripPrice);
+		setPrice(formData.twoWayTrip ? 2 * tripPrice : tripPrice);
 	}
 
 	return (
@@ -50,16 +44,9 @@ export default function Home() {
 			<Box id="inner-container" className="col">
 				<h1>TripCost</h1>
 				<form onSubmit={handleSubmit}>
-					<Trip
-						onDistanceChange={handleOnDistanceChange}
-						checked={twoWayTrip}
-						onTwoWayTripChange={handleTwoWayTripChange}
-					/>
-					<Fuel
-						onFuelEfficiencyChange={handleFuelEfficiencyChange}
-						onFuelPriceChange={handleFuelPriceChange}
-					/>
-					<CalcPriceButton onCalcPrice={handleCalcPrice} />
+					<Trip formData={formData} onInputChange={handleInputChange} />
+					<Fuel onInputChange={handleInputChange} />
+					<CalcPriceButton onSubmit={handleSubmit} />
 				</form>
 				<Box id="price" sx={{ height: 100 }}>
 					{price} DKK
@@ -70,37 +57,13 @@ export default function Home() {
 	);
 }
 
-function Fuel({ onFuelEfficiencyChange, onFuelPriceChange }) {
-	return (
-		<Box id="fuel" className="col">
-			<TextField
-				label="Fuel efficiency (km/liter)"
-				onChange={(e) => {
-					onFuelEfficiencyChange(e.target.value);
-				}}
-				slotProps={{ htmlInput: { type: "number" } }}
-				required
-			></TextField>
-			<TextField
-				label="Fuel price (kr/liter)"
-				onChange={(e) => {
-					onFuelPriceChange(e.target.value);
-				}}
-				slotProps={{ htmlInput: { type: "number" } }}
-				required
-			></TextField>
-		</Box>
-	);
-}
-
-function Trip({ onDistanceChange, twoWayTrip, onTwoWayTripChange }) {
+function Trip({ formData, onInputChange }) {
 	return (
 		<Box id="trip" className="col">
 			<TextField
 				label="Trip distance (km)"
-				onChange={(e) => {
-					onDistanceChange(e.target.value);
-				}}
+				name="distance"
+				onChange={onInputChange}
 				slotProps={{ htmlInput: { type: "number" } }}
 				required
 			></TextField>
@@ -108,8 +71,9 @@ function Trip({ onDistanceChange, twoWayTrip, onTwoWayTripChange }) {
 			<FormControlLabel
 				control={
 					<Checkbox
-						checked={twoWayTrip}
-						onChange={onTwoWayTripChange}
+						name="twoWayTrip"
+						checked={formData.twoWayTrip}
+						onChange={onInputChange}
 					></Checkbox>
 				}
 				label="Two-way trip"
@@ -118,14 +82,30 @@ function Trip({ onDistanceChange, twoWayTrip, onTwoWayTripChange }) {
 	);
 }
 
-function CalcPriceButton({ onCalcPrice }) {
+function Fuel({ onInputChange }) {
 	return (
-		<Button
-			type="submit"
-			variant="contained"
-			size="large"
-			onClick={onCalcPrice}
-		>
+		<Box id="fuel" className="col">
+			<TextField
+				label="Fuel efficiency (km/liter)"
+				name="fuelEfficiency"
+				onChange={onInputChange}
+				slotProps={{ htmlInput: { type: "number" } }}
+				required
+			></TextField>
+			<TextField
+				label="Fuel price (kr/liter)"
+				name="fuelPrice"
+				onChange={onInputChange}
+				slotProps={{ htmlInput: { type: "number" } }}
+				required
+			></TextField>
+		</Box>
+	);
+}
+
+function CalcPriceButton() {
+	return (
+		<Button type="submit" variant="contained" size="large">
 			Calculate price
 		</Button>
 	);
