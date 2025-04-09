@@ -46,7 +46,7 @@ export default function Home() {
 				<form onSubmit={handleSubmit}>
 					<Trip formData={formData} onInputChange={handleInputChange} />
 					<Fuel onInputChange={handleInputChange} />
-					<CalcPriceButton onSubmit={handleSubmit} />
+					<CalcPriceButton />
 				</form>
 				<Box id="price" sx={{ height: 100 }}>
 					{price} DKK
