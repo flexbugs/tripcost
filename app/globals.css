@@ -3,7 +3,8 @@
 	gap: 4rem;
 }
 
-#inner-container {
+#inner-container,
+form {
 	gap: 2rem;
 }
 

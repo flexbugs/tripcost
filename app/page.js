@@ -62,7 +62,7 @@ export default function Home() {
 		<>
 			<Box id="inner-container" className="col">
 				<h1>TripCost</h1>
-				<form onSubmit={handleSubmit} noValidate>
+				<form onSubmit={handleSubmit} noValidate className="col">
 					<Trip
 						formData={formData}
 						onInputChange={handleInputChange}
