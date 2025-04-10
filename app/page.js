@@ -12,26 +12,46 @@ export default function Home() {
 		fuelEfficiency: "",
 		fuelPrice: "",
 	});
+	const [errors, setErrors] = useState({});
 	const [price, setPrice] = useState(0);
 
 	function handleInputChange(e) {
 		const { name, type, value, checked } = e.target;
 		setFormData({
 			...formData,
-			// handle both checkbox and field inputs
-			[name]: type === "checkbox" ? checked : value,
+			[name]: type === "checkbox" ? checked : value, // handle both checkbox and field inputs
 		});
 	}
 
-	function handleSubmit(event) {
-		event.preventDefault();
-		/* 
-		Check if all fields are filled and have valid values (all filled)
-		(distance, fuel efficiency, fuel price: 1 or higher value)
-		If not: 
-		display error snackbar and
-		display error on erroneous fields
-		*/
+	function handleSubmit(e) {
+		e.preventDefault();
+
+		const newErrors = {};
+
+		if (!formData.distance) {
+			newErrors.distance = "Please fill out this field";
+		} else if (formData.distance < 1) {
+			newErrors.distance = "Must be 1 or higher";
+		}
+		if (!formData.fuelEfficiency) {
+			newErrors.fuelEfficiency = "Please fill out this field";
+		} else if (formData.fuelEfficiency < 1) {
+			newErrors.fuelEfficiency = "Must be 1 or higher";
+		}
+		if (!formData.fuelPrice) {
+			newErrors.fuelPrice = "Please fill out this field";
+		} else if (formData.fuelPrice < 1) {
+			newErrors.fuelPrice = "Must be 1 or higher";
+		}
+
+		// Set errors and stop if any
+		if (Object.keys(newErrors).length > 0) {
+			setErrors(newErrors);
+			return;
+		}
+
+		setErrors({}); // Clear any old errors
+
 		const tripPrice = Number(
 			(formData.distance / formData.fuelEfficiency) * formData.fuelPrice
 		).toFixed(2);
@@ -43,9 +63,17 @@ export default function Home() {
 		<>
 			<Box id="inner-container" className="col">
 				<h1>TripCost</h1>
-				<form onSubmit={handleSubmit}>
-					<Trip formData={formData} onInputChange={handleInputChange} />
-					<Fuel onInputChange={handleInputChange} />
+				<form onSubmit={handleSubmit} noValidate>
+					<Trip
+						formData={formData}
+						onInputChange={handleInputChange}
+						errors={errors}
+					/>
+					<Fuel
+						formData={formData}
+						onInputChange={handleInputChange}
+						errors={errors}
+					/>
 					<CalcPriceButton />
 				</form>
 				<Box id="price" sx={{ height: 100 }}>
@@ -57,7 +85,7 @@ export default function Home() {
 	);
 }
 
-function Trip({ formData, onInputChange }) {
+function Trip({ formData, onInputChange, errors }) {
 	return (
 		<Box id="trip" className="col">
 			<TextField
@@ -66,6 +94,8 @@ function Trip({ formData, onInputChange }) {
 				onChange={onInputChange}
 				slotProps={{ htmlInput: { type: "number" } }}
 				required
+				error={!!errors.distance}
+				helperText={errors.distance}
 			></TextField>
 
 			<FormControlLabel
@@ -82,7 +112,7 @@ function Trip({ formData, onInputChange }) {
 	);
 }
 
-function Fuel({ onInputChange }) {
+function Fuel({ onInputChange, errors }) {
 	return (
 		<Box id="fuel" className="col">
 			<TextField
@@ -91,6 +121,8 @@ function Fuel({ onInputChange }) {
 				onChange={onInputChange}
 				slotProps={{ htmlInput: { type: "number" } }}
 				required
+				error={!!errors.fuelEfficiency}
+				helperText={errors.fuelEfficiency}
 			></TextField>
 			<TextField
 				label="Fuel price (kr/liter)"
@@ -98,6 +130,8 @@ function Fuel({ onInputChange }) {
 				onChange={onInputChange}
 				slotProps={{ htmlInput: { type: "number" } }}
 				required
+				error={!!errors.fuelPrice}
+				helperText={errors.fuelPrice}
 			></TextField>
 		</Box>
 	);
