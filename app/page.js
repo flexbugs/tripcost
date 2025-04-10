@@ -3,7 +3,6 @@
 import { Box, FormControlLabel, Checkbox, TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useState } from "react";
-import Snackbar from "@mui/material/Snackbar";
 
 export default function Home() {
 	const [formData, setFormData] = useState({
@@ -79,7 +78,6 @@ export default function Home() {
 				<Box id="price" sx={{ height: 100 }}>
 					{price} DKK
 				</Box>
-				<Snackbar message="Snackbar text" open="true"></Snackbar>
 			</Box>
 		</>
 	);
