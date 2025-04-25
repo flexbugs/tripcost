@@ -1,6 +1,6 @@
 import { Box, TextField } from "@mui/material";
 
-export default function Fuel() {
+export default function Fuel({ onInputChange }) {
 	return (
 		<Box
 			id="Fuel"
@@ -10,8 +10,16 @@ export default function Fuel() {
 				gap: 2,
 			}}
 		>
-			<TextField label="Fuel efficiency (km/liter)"></TextField>
-			<TextField label="Fuel price (kr/liter)"></TextField>
+			<TextField
+				label="Fuel efficiency (km/liter)"
+				name="fuelEfficiency"
+				onChange={onInputChange}
+			></TextField>
+			<TextField
+				label="Fuel price (kr/liter)"
+				name="fuelPrice"
+				onChange={onInputChange}
+			></TextField>
 		</Box>
 	);
 }

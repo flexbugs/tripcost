@@ -4,18 +4,35 @@ import Fuel from "./components/Fuel";
 import Price from "./components/Price";
 import { Box, Container, Typography } from "@mui/material";
 import "./App.css";
+import { useState } from "react";
 
 export default function App() {
-	const formData = {
-		distance: 100,
+	const [formData, setFormData] = useState({
+		distance: "",
 		twoWayTrip: false,
-		fuelEfficiency: 15,
-		fuelPrice: 14,
-	};
+		fuelEfficiency: "",
+		fuelPrice: "",
+	});
 
-	const price = Number(
-		(formData.distance / formData.fuelEfficiency) * formData.fuelPrice
-	).toFixed(2);
+	const [price, setPrice] = useState(0);
+
+	function handleInputChange(e) {
+		const { name, value } = e.target;
+		setFormData({
+			...formData,
+			[name]: value,
+		});
+	}
+
+	function handleSubmit(e) {
+		e.preventDefault();
+
+		const tripPrice = Number(
+			(formData.distance / formData.fuelEfficiency) * formData.fuelPrice
+		).toFixed(2);
+
+		setPrice(tripPrice);
+	}
 
 	return (
 		<>
@@ -30,7 +47,7 @@ export default function App() {
 				}}
 			>
 				<Typography variant="h3">TripCost</Typography>
-				<form>
+				<form onSubmit={handleSubmit}>
 					<Box
 						id="inner-container"
 						sx={{
@@ -39,8 +56,8 @@ export default function App() {
 							gap: 4,
 						}}
 					>
-						<Trip />
-						<Fuel />
+						<Trip onInputChange={handleInputChange} />
+						<Fuel onInputChange={handleInputChange} />
 						<CalcPriceButton />
 					</Box>
 				</form>
