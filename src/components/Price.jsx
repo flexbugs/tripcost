@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-export default function Price() {
+export default function Price({ price }) {
 	return (
 		<Box
 			id="Price"
@@ -11,7 +11,7 @@ export default function Price() {
 				justifyContent: "center",
 			}}
 		>
-			<Typography variant="h4">[PRICE]</Typography>
+			<Typography variant="h4">{price}</Typography>
 		</Box>
 	);
 }

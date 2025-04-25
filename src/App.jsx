@@ -6,6 +6,17 @@ import { Box, Container, Typography } from "@mui/material";
 import "./App.css";
 
 export default function App() {
+	const formData = {
+		distance: 100,
+		twoWayTrip: false,
+		fuelEfficiency: 15,
+		fuelPrice: 14,
+	};
+
+	const price = Number(
+		(formData.distance / formData.fuelEfficiency) * formData.fuelPrice
+	).toFixed(2);
+
 	return (
 		<>
 			<Container
@@ -33,7 +44,7 @@ export default function App() {
 						<CalcPriceButton />
 					</Box>
 				</form>
-				<Price />
+				<Price price={price} />
 			</Container>
 		</>
 	);

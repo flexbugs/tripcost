@@ -10,7 +10,7 @@ export default function Trip() {
 				gap: 2,
 			}}
 		>
-			<TextField label="Distance"></TextField>
+			<TextField label="Trip distance" name="distance"></TextField>
 			<FormControlLabel
 				control={<Checkbox></Checkbox>}
 				label="Two-way trip"
