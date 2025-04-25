@@ -1,6 +1,6 @@
 import { Box, Checkbox, FormControlLabel, TextField } from "@mui/material";
 
-export default function Trip({ onInputChange }) {
+export default function Trip({ formData, onInputChange }) {
 	return (
 		<Box
 			id="Trip"
@@ -16,7 +16,13 @@ export default function Trip({ onInputChange }) {
 				onChange={onInputChange}
 			></TextField>
 			<FormControlLabel
-				control={<Checkbox></Checkbox>}
+				control={
+					<Checkbox
+						name="twoWayTrip"
+						checked={formData.twoWayTrip}
+						onChange={onInputChange}
+					></Checkbox>
+				}
 				label="Two-way trip"
 			></FormControlLabel>
 		</Box>

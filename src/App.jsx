@@ -13,14 +13,13 @@ export default function App() {
 		fuelEfficiency: "",
 		fuelPrice: "",
 	});
-
 	const [price, setPrice] = useState(0);
 
 	function handleInputChange(e) {
-		const { name, value } = e.target;
+		const { name, type, value, checked } = e.target;
 		setFormData({
 			...formData,
-			[name]: value,
+			[name]: type === "checkbox" ? checked : value, // handle both checkbox and field inputs
 		});
 	}
 
@@ -31,7 +30,7 @@ export default function App() {
 			(formData.distance / formData.fuelEfficiency) * formData.fuelPrice
 		).toFixed(2);
 
-		setPrice(tripPrice);
+		setPrice(formData.twoWayTrip ? 2 * tripPrice : tripPrice);
 	}
 
 	return (
@@ -56,7 +55,7 @@ export default function App() {
 							gap: 4,
 						}}
 					>
-						<Trip onInputChange={handleInputChange} />
+						<Trip formData={formData} onInputChange={handleInputChange} />
 						<Fuel onInputChange={handleInputChange} />
 						<CalcPriceButton />
 					</Box>
