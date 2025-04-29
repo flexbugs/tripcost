@@ -1,6 +1,12 @@
+import React from "react";
 import { Box, TextField } from "@mui/material";
+import { ChangeEvent } from "../types";
 
-export default function Fuel({ onInputChange }) {
+type FuelProps = {
+	onInputChange: ChangeEvent;
+};
+
+export default function Fuel({ onInputChange }: FuelProps) {
 	return (
 		<Box
 			id="Fuel"

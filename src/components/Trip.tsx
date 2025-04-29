@@ -1,6 +1,13 @@
+import React from "react";
 import { Box, Checkbox, FormControlLabel, TextField } from "@mui/material";
+import { FormData, ChangeEvent } from "../types";
 
-export default function Trip({ formData, onInputChange }) {
+type TripProps = {
+	formData: FormData;
+	onInputChange: ChangeEvent;
+};
+
+export default function Trip({ formData, onInputChange }: TripProps) {
 	return (
 		<Box
 			id="Trip"

@@ -1,6 +1,11 @@
+import React from "react";
 import { Box, Typography } from "@mui/material";
 
-export default function Price({ price }) {
+type PriceProps = {
+	price: number;
+};
+
+export default function Price({ price }: PriceProps) {
 	return (
 		<Box
 			id="Price"

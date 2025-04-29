@@ -1,13 +1,15 @@
+import React from "react";
+import { useState } from "react";
+import { Box, Container, Typography } from "@mui/material";
 import CalcPriceButton from "./components/CalcPriceButton";
 import Trip from "./components/Trip";
 import Fuel from "./components/Fuel";
 import Price from "./components/Price";
-import { Box, Container, Typography } from "@mui/material";
 import "./App.css";
-import { useState } from "react";
+import { FormData, ChangeEvent } from "./types";
 
 export default function App() {
-	const [formData, setFormData] = useState({
+	const [formData, setFormData] = useState<FormData>({
 		distance: "",
 		twoWayTrip: false,
 		fuelEfficiency: "",
@@ -15,20 +17,24 @@ export default function App() {
 	});
 	const [price, setPrice] = useState(0);
 
-	function handleInputChange(e) {
+	const handleInputChange: ChangeEvent = (e) => {
 		const { name, type, value, checked } = e.target;
 		setFormData({
 			...formData,
 			[name]: type === "checkbox" ? checked : value, // handle both checkbox and field inputs
 		});
-	}
+	};
 
-	function handleSubmit(e) {
+	function handleSubmit(e: React.FormEvent) {
 		e.preventDefault();
 
-		const tripPrice = Number(
-			(formData.distance / formData.fuelEfficiency) * formData.fuelPrice
-		).toFixed(2);
+		const distance = Number(formData.distance);
+		const fuelEfficiency = Number(formData.fuelEfficiency);
+		const fuelPrice = Number(formData.fuelPrice);
+
+		const tripPrice = parseFloat(
+			((distance / fuelEfficiency) * fuelPrice).toFixed(2)
+		);
 
 		setPrice(formData.twoWayTrip ? 2 * tripPrice : tripPrice);
 	}
