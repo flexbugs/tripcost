@@ -1,13 +1,14 @@
 import React from "react";
 import { Box, TextField } from "@mui/material";
-import { FormData, ChangeEvent } from "../types";
+import { FormData, Errors, ChangeEvent } from "../types";
 
 type FuelProps = {
 	onInputChange: ChangeEvent;
 	formData: FormData;
+	errors: Errors;
 };
 
-export default function Fuel({ formData, onInputChange }: FuelProps) {
+export default function Fuel({ formData, onInputChange, errors }: FuelProps) {
 	return (
 		<Box
 			id="Fuel"
@@ -22,12 +23,16 @@ export default function Fuel({ formData, onInputChange }: FuelProps) {
 				name="fuelEfficiency"
 				value={formData.fuelEfficiency}
 				onChange={onInputChange}
+				error={!!errors.fuelEfficiency}
+				helperText={errors.fuelEfficiency}
 			></TextField>
 			<TextField
 				label="Fuel price (kr/liter)"
 				name="fuelPrice"
 				value={formData.fuelPrice}
 				onChange={onInputChange}
+				error={!!errors.fuelPrice}
+				helperText={errors.fuelPrice}
 			></TextField>
 		</Box>
 	);

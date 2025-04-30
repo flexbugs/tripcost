@@ -1,13 +1,14 @@
 import React from "react";
 import { Box, Checkbox, FormControlLabel, TextField } from "@mui/material";
-import { FormData, ChangeEvent } from "../types";
+import { FormData, Errors, ChangeEvent } from "../types";
 
 type TripProps = {
 	formData: FormData;
 	onInputChange: ChangeEvent;
+	errors: Errors;
 };
 
-export default function Trip({ formData, onInputChange }: TripProps) {
+export default function Trip({ formData, onInputChange, errors }: TripProps) {
 	return (
 		<Box
 			id="Trip"
@@ -22,6 +23,8 @@ export default function Trip({ formData, onInputChange }: TripProps) {
 				name="distance"
 				value={formData.distance}
 				onChange={onInputChange}
+				error={!!errors.distance}
+				helperText={errors.distance}
 			></TextField>
 			<FormControlLabel
 				control={

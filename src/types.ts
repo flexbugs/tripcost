@@ -6,4 +6,10 @@ export type FormData = {
 	fuelPrice: string | number;
 };
 
+export type Errors = {
+	distance?: string;
+	fuelEfficiency?: string;
+	fuelPrice?: string;
+};
+
 export type ChangeEvent = (e: React.ChangeEvent<HTMLInputElement>) => void;

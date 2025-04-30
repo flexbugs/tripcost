@@ -5,7 +5,7 @@ import CalcPriceButton from "./components/CalcPriceButton";
 import Trip from "./components/Trip";
 import Fuel from "./components/Fuel";
 import Price from "./components/Price";
-import { FormData, ChangeEvent } from "./types";
+import { FormData, Errors, ChangeEvent } from "./types";
 
 export default function App() {
 	const [formData, setFormData] = useState<FormData>({
@@ -14,6 +14,7 @@ export default function App() {
 		fuelEfficiency: "",
 		fuelPrice: "",
 	});
+	const [errors, setErrors] = useState<Errors>({});
 	const [price, setPrice] = useState(0);
 
 	const handleInputChange: ChangeEvent = (e) => {
@@ -30,6 +31,33 @@ export default function App() {
 		const distance = Number(formData.distance);
 		const fuelEfficiency = Number(formData.fuelEfficiency);
 		const fuelPrice = Number(formData.fuelPrice);
+
+		const newErrors: Errors = {};
+
+		if (!distance) {
+			newErrors.distance = "Please set trip distance";
+		} else if (distance < 1) {
+			newErrors.distance = "Must be at least 1";
+		}
+
+		if (!fuelEfficiency) {
+			newErrors.fuelEfficiency = "Please set fuel efficiency";
+		} else if (fuelEfficiency < 1) {
+			newErrors.fuelEfficiency = "Must be at least 1";
+		}
+
+		if (!fuelPrice) {
+			newErrors.fuelPrice = "Please set fuel price";
+		} else if (fuelPrice < 1) {
+			newErrors.fuelPrice = "Must be at least 1";
+		}
+
+		if (Object.keys(newErrors).length > 0) {
+			setErrors(newErrors);
+			return;
+		}
+
+		setErrors({});
 
 		const tripPrice = parseFloat(
 			((distance / fuelEfficiency) * fuelPrice).toFixed(2)
@@ -62,8 +90,16 @@ export default function App() {
 							gap: 4,
 						}}
 					>
-						<Trip formData={formData} onInputChange={handleInputChange} />
-						<Fuel formData={formData} onInputChange={handleInputChange} />
+						<Trip
+							formData={formData}
+							onInputChange={handleInputChange}
+							errors={errors}
+						/>
+						<Fuel
+							formData={formData}
+							onInputChange={handleInputChange}
+							errors={errors}
+						/>
 						<CalcPriceButton />
 					</Box>
 				</form>
