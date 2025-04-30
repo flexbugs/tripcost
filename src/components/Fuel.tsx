@@ -19,7 +19,8 @@ export default function Fuel({ formData, onInputChange, errors }: FuelProps) {
 			}}
 		>
 			<TextField
-				label="Fuel efficiency (km/liter)"
+				aria-required
+				label="Fuel efficiency (km/liter) *"
 				name="fuelEfficiency"
 				value={formData.fuelEfficiency}
 				onChange={onInputChange}
@@ -27,7 +28,8 @@ export default function Fuel({ formData, onInputChange, errors }: FuelProps) {
 				helperText={errors.fuelEfficiency}
 			></TextField>
 			<TextField
-				label="Fuel price (kr/liter)"
+				aria-required
+				label="Fuel price (kr/liter) *"
 				name="fuelPrice"
 				value={formData.fuelPrice}
 				onChange={onInputChange}

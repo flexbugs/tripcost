@@ -19,7 +19,8 @@ export default function Trip({ formData, onInputChange, errors }: TripProps) {
 			}}
 		>
 			<TextField
-				label="Trip distance"
+				aria-required
+				label="Trip distance (km) *"
 				name="distance"
 				value={formData.distance}
 				onChange={onInputChange}

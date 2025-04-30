@@ -81,7 +81,7 @@ export default function App() {
 				<Typography variant="h3" align="center">
 					TripCost
 				</Typography>
-				<form onSubmit={handleSubmit}>
+				<form onSubmit={handleSubmit} noValidate>
 					<Box
 						id="inner-container"
 						sx={{
