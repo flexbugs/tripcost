@@ -26,6 +26,15 @@ export default function Fuel({ formData, onInputChange, errors }: FuelProps) {
 				onChange={onInputChange}
 				error={!!errors.fuelEfficiency}
 				helperText={errors.fuelEfficiency}
+				sx={{
+					"& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+						{
+							display: "none",
+						},
+					"& input[type=number]": {
+						MozAppearance: "textfield",
+					},
+				}}
 			></TextField>
 			<TextField
 				aria-required
@@ -35,6 +44,15 @@ export default function Fuel({ formData, onInputChange, errors }: FuelProps) {
 				onChange={onInputChange}
 				error={!!errors.fuelPrice}
 				helperText={errors.fuelPrice}
+				sx={{
+					"& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+						{
+							display: "none",
+						},
+					"& input[type=number]": {
+						MozAppearance: "textfield",
+					},
+				}}
 			></TextField>
 		</Box>
 	);

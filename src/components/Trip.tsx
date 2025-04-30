@@ -26,6 +26,15 @@ export default function Trip({ formData, onInputChange, errors }: TripProps) {
 				onChange={onInputChange}
 				error={!!errors.distance}
 				helperText={errors.distance}
+				sx={{
+					"& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+						{
+							display: "none",
+						},
+					"& input[type=number]": {
+						MozAppearance: "textfield",
+					},
+				}}
 			></TextField>
 			<FormControlLabel
 				control={
