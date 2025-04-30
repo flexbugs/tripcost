@@ -50,7 +50,9 @@ export default function App() {
 					padding: 5,
 				}}
 			>
-				<Typography variant="h3">TripCost</Typography>
+				<Typography variant="h3" align="center">
+					TripCost
+				</Typography>
 				<form onSubmit={handleSubmit}>
 					<Box
 						id="inner-container"

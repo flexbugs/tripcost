@@ -7,6 +7,15 @@ const darkTheme = createTheme({
 	palette: {
 		mode: "dark",
 	},
+	components: {
+		MuiTypography: {
+			defaultProps: {
+				variantMapping: {
+					h3: "h1",
+				},
+			},
+		},
+	},
 });
 
 createRoot(document.getElementById("root")).render(
