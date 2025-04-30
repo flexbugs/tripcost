@@ -5,7 +5,6 @@ import CalcPriceButton from "./components/CalcPriceButton";
 import Trip from "./components/Trip";
 import Fuel from "./components/Fuel";
 import Price from "./components/Price";
-import "./App.css";
 import { FormData, ChangeEvent } from "./types";
 
 export default function App() {
