@@ -20,6 +20,7 @@ export default function Trip({ formData, onInputChange }: TripProps) {
 			<TextField
 				label="Trip distance"
 				name="distance"
+				value={formData.distance}
 				onChange={onInputChange}
 			></TextField>
 			<FormControlLabel

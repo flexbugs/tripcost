@@ -62,7 +62,7 @@ export default function App() {
 						}}
 					>
 						<Trip formData={formData} onInputChange={handleInputChange} />
-						<Fuel onInputChange={handleInputChange} />
+						<Fuel formData={formData} onInputChange={handleInputChange} />
 						<CalcPriceButton />
 					</Box>
 				</form>
