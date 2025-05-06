@@ -1,6 +1,6 @@
 {
-	"name": "tripcost-vite",
-	"homepage": "https://flexbugs.github.io/tripcost-vite",
+	"name": "tripcost",
+	"homepage": "https://flexbugs.github.io/tripcost",
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
