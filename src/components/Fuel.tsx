@@ -26,13 +26,11 @@ export default function Fuel({ formData, onInputChange, errors }: FuelProps) {
 				onChange={onInputChange}
 				error={!!errors.fuelEfficiency}
 				helperText={errors.fuelEfficiency}
-				sx={{
-					"& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
-						{
-							display: "none",
-						},
-					"& input[type=number]": {
-						MozAppearance: "textfield",
+				slotProps={{
+					htmlInput: {
+						type: "text",
+						inputMode: "numeric",
+						pattern: "[0-9]*",
 					},
 				}}
 			></TextField>
@@ -44,13 +42,11 @@ export default function Fuel({ formData, onInputChange, errors }: FuelProps) {
 				onChange={onInputChange}
 				error={!!errors.fuelPrice}
 				helperText={errors.fuelPrice}
-				sx={{
-					"& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
-						{
-							display: "none",
-						},
-					"& input[type=number]": {
-						MozAppearance: "textfield",
+				slotProps={{
+					htmlInput: {
+						type: "text",
+						inputMode: "numeric",
+						pattern: "[0-9]*",
 					},
 				}}
 			></TextField>
