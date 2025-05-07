@@ -1,11 +1,11 @@
 import React from "react";
 import { Box, TextField } from "@mui/material";
-import { FormData, Errors, ChangeEvent } from "../types";
+import { TFormData, TErrors, TChangeEvent } from "../types";
 
 type FuelProps = {
-	onInputChange: ChangeEvent;
-	formData: FormData;
-	errors: Errors;
+	onInputChange: TChangeEvent;
+	formData: TFormData;
+	errors: TErrors;
 };
 
 export default function Fuel({ formData, onInputChange, errors }: FuelProps) {

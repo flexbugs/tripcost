@@ -1,11 +1,11 @@
 import React from "react";
 import { Box, Checkbox, FormControlLabel, TextField } from "@mui/material";
-import { FormData, Errors, ChangeEvent } from "../types";
+import { TFormData, TErrors, TChangeEvent } from "../types";
 
 type TripProps = {
-	formData: FormData;
-	onInputChange: ChangeEvent;
-	errors: Errors;
+	formData: TFormData;
+	onInputChange: TChangeEvent;
+	errors: TErrors;
 };
 
 export default function Trip({ formData, onInputChange, errors }: TripProps) {

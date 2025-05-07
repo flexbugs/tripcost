@@ -5,19 +5,19 @@ import CalcPriceButton from "./components/CalcPriceButton";
 import Trip from "./components/Trip";
 import Fuel from "./components/Fuel";
 import Price from "./components/Price";
-import { FormData, Errors, ChangeEvent } from "./types";
+import { TFormData, TErrors, TPrice, TChangeEvent } from "./types";
 
 export default function App() {
-	const [formData, setFormData] = useState<FormData>({
+	const [formData, setFormData] = useState<TFormData>({
 		distance: "",
 		twoWayTrip: false,
 		fuelEfficiency: "",
 		fuelPrice: "",
 	});
-	const [errors, setErrors] = useState<Errors>({});
-	const [price, setPrice] = useState(0);
+	const [errors, setErrors] = useState<TErrors>({});
+	const [price, setPrice] = useState<TPrice>(0);
 
-	const handleInputChange: ChangeEvent = (e) => {
+	const handleInputChange: TChangeEvent = (e) => {
 		const { name, type, value, checked } = e.target;
 		setFormData({
 			...formData,
@@ -25,46 +25,51 @@ export default function App() {
 		});
 	};
 
-	function handleSubmit(e: React.FormEvent) {
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		const distance = Number(formData.distance);
-		const fuelEfficiency = Number(formData.fuelEfficiency);
-		const fuelPrice = Number(formData.fuelPrice);
+		const distance = parseFloat(formData.distance);
+		const fuelEfficiency = parseFloat(formData.fuelEfficiency);
+		const fuelPrice = parseFloat(formData.fuelPrice);
 
-		const newErrors: Errors = {};
+		const newErrors: TErrors = {};
 
-		if (!distance) {
-			newErrors.distance = "Please set trip distance";
+		if (!formData.distance) {
+			newErrors.distance = "Please set a distance";
+		} else if (isNaN(distance)) {
+			newErrors.distance = "Must be a number";
 		} else if (distance < 1) {
 			newErrors.distance = "Must be at least 1";
 		}
 
-		if (!fuelEfficiency) {
+		if (!formData.fuelEfficiency) {
 			newErrors.fuelEfficiency = "Please set fuel efficiency";
+		} else if (isNaN(fuelEfficiency)) {
+			newErrors.fuelEfficiency = "Must be a number";
 		} else if (fuelEfficiency < 1) {
 			newErrors.fuelEfficiency = "Must be at least 1";
 		}
 
-		if (!fuelPrice) {
-			newErrors.fuelPrice = "Please set fuel price";
+		if (!formData.fuelPrice) {
+			newErrors.fuelPrice = "Please set fuel efficiency";
+		} else if (isNaN(fuelPrice)) {
+			newErrors.fuelPrice = "Must be a number";
 		} else if (fuelPrice < 1) {
 			newErrors.fuelPrice = "Must be at least 1";
 		}
 
 		if (Object.keys(newErrors).length > 0) {
 			setErrors(newErrors);
+			setPrice("Error!");
 			return;
 		}
 
 		setErrors({});
 
-		const tripPrice = parseFloat(
-			((distance / fuelEfficiency) * fuelPrice).toFixed(2)
-		);
-
+		const basePrice = (distance / fuelEfficiency) * fuelPrice;
+		const tripPrice = parseFloat(basePrice.toFixed(2));
 		setPrice(formData.twoWayTrip ? 2 * tripPrice : tripPrice);
-	}
+	};
 
 	return (
 		<>

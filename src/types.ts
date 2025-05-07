@@ -1,15 +1,16 @@
-export type FormData = {
-	// Allowing string for empty "" value to display field label
-	distance: string | number;
+export type TFormData = {
+	distance: string;
 	twoWayTrip: boolean;
-	fuelEfficiency: string | number;
-	fuelPrice: string | number;
+	fuelEfficiency: string;
+	fuelPrice: string;
 };
 
-export type Errors = {
+export type TErrors = {
 	distance?: string;
 	fuelEfficiency?: string;
 	fuelPrice?: string;
 };
 
-export type ChangeEvent = (e: React.ChangeEvent<HTMLInputElement>) => void;
+export type TPrice = string | number;
+
+export type TChangeEvent = (e: React.ChangeEvent<HTMLInputElement>) => void;

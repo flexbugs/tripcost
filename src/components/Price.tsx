@@ -1,8 +1,9 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
+import { TPrice } from "../types";
 
 type PriceProps = {
-	price: number;
+	price: TPrice;
 };
 
 export default function Price({ price }: PriceProps) {
