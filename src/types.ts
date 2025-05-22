@@ -1,8 +1,15 @@
+export type TFuelData = {
+	type: string;
+	price: number;
+};
+
 export type TFormData = {
 	distance: string;
 	twoWayTrip: boolean;
 	fuelEfficiency: string;
+	fuelType: string;
 	fuelPrice: string;
+	fuelSource: "api" | "manual";
 };
 
 export type TErrors = {
