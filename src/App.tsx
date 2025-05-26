@@ -12,7 +12,7 @@ import {
 	TPrice,
 	TChangeEvent,
 	TApiError,
-	TFuelTypes,
+	TSelectedFuelTypes,
 } from "./types";
 
 export default function App() {
@@ -28,7 +28,7 @@ export default function App() {
 	);
 	const [apiError, setApiError] = useState<TApiError>(null);
 	const [selectedFuelType, setSelectedFuelType] =
-		useState<TFuelTypes>("blyfri95");
+		useState<TSelectedFuelTypes>("Blyfri 95");
 	const [price, setPrice] = useState<TPrice>(0);
 
 	useEffect(() => {
@@ -137,6 +137,7 @@ export default function App() {
 							fuelData={fuelData}
 							onInputChange={handleInputChange}
 							validationErrors={validationErrors}
+							selectedFuelType={selectedFuelType}
 						/>
 						<CalcPriceButton />
 					</Box>

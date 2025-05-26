@@ -14,7 +14,11 @@ export type TFuelData = {
 	};
 };
 
-export type TFuelTypes = "blyfri95" | "oktan100" | "diesel" | "custom";
+export type TSelectedFuelTypes =
+	| "Blyfri 95"
+	| "Oktan 100"
+	| "Diesel"
+	| "Custom";
 
 export type TValidationErrors = {
 	distance?: string;

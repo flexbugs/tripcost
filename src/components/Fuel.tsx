@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, TextField } from "@mui/material";
 import {
 	TFormData,
@@ -6,6 +5,7 @@ import {
 	TValidationErrors,
 	TChangeEvent,
 	TApiError,
+	TSelectedFuelTypes,
 } from "../types";
 import FuelSelection from "./FuelSelection";
 
@@ -15,6 +15,7 @@ type FuelProps = {
 	fuelData: TFuelData | null;
 	onInputChange: TChangeEvent;
 	validationErrors: TValidationErrors;
+	selectedFuelType: TSelectedFuelTypes;
 };
 
 export default function Fuel({
@@ -23,6 +24,7 @@ export default function Fuel({
 	fuelData,
 	onInputChange,
 	validationErrors,
+	selectedFuelType,
 }: FuelProps) {
 	return (
 		<Box
@@ -55,6 +57,7 @@ export default function Fuel({
 				formData={formData}
 				onInputChange={onInputChange}
 				validationErrors={validationErrors}
+				selectedFuelType={selectedFuelType}
 			/>
 		</Box>
 	);
