@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import CalcPriceButton from "./components/CalcPriceButton";
@@ -8,6 +8,7 @@ import Price from "./components/Price";
 import { TFormData, TErrors, TPrice, TChangeEvent } from "./types";
 
 export default function App() {
+	const [fuelData, setFuelData] = useState([]);
 	const [formData, setFormData] = useState<TFormData>({
 		distance: "",
 		twoWayTrip: false,
@@ -16,6 +17,22 @@ export default function App() {
 	});
 	const [errors, setErrors] = useState<TErrors>({});
 	const [price, setPrice] = useState<TPrice>(0);
+
+	useEffect(() => {
+		const fetchFuelPrices = async () => {
+			try {
+				const response = await fetch("http://localhost:3000/api/fuel-prices");
+				if (response.ok) {
+					const data = await response.json();
+					setFuelData(data);
+				}
+			} catch (err) {
+				console.log("Error: Fetching error");
+			}
+		};
+
+		fetchFuelPrices();
+	});
 
 	const handleInputChange: TChangeEvent = (e) => {
 		const { name, type, value, checked } = e.target;
