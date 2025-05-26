@@ -5,10 +5,18 @@ import CalcPriceButton from "./components/CalcPriceButton";
 import Trip from "./components/Trip";
 import Fuel from "./components/Fuel";
 import Price from "./components/Price";
-import { TFormData, TValidationErrors, TPrice, TChangeEvent } from "./types";
+import {
+	TFormData,
+	TFuelData,
+	TValidationErrors,
+	TPrice,
+	TChangeEvent,
+	TApiError,
+	TFuelTypes,
+} from "./types";
 
 export default function App() {
-	const [fuelData, setFuelData] = useState();
+	const [fuelData, setFuelData] = useState<TFuelData | null>(null);
 	const [formData, setFormData] = useState<TFormData>({
 		distance: "",
 		twoWayTrip: false,
@@ -18,6 +26,9 @@ export default function App() {
 	const [validationErrors, setValidationErrors] = useState<TValidationErrors>(
 		{}
 	);
+	const [apiError, setApiError] = useState<TApiError>(null);
+	const [selectedFuelType, setSelectedFuelType] =
+		useState<TFuelTypes>("blyfri95");
 	const [price, setPrice] = useState<TPrice>(0);
 
 	useEffect(() => {
@@ -30,11 +41,12 @@ export default function App() {
 				}
 			} catch (err) {
 				console.log("Error: Fetching error");
+				setApiError("Could not get API fuel prices. Set price manually.");
 			}
 		};
 
 		fetchFuelPrices();
-	});
+	}, []);
 
 	const handleInputChange: TChangeEvent = (e) => {
 		const { name, type, value, checked } = e.target;
@@ -120,7 +132,9 @@ export default function App() {
 							validationErrors={validationErrors}
 						/>
 						<Fuel
+							apiError={apiError}
 							formData={formData}
+							fuelData={fuelData}
 							onInputChange={handleInputChange}
 							validationErrors={validationErrors}
 						/>
