@@ -1,14 +1,18 @@
 import React from "react";
 import { Box, Checkbox, FormControlLabel, TextField } from "@mui/material";
-import { TFormData, TErrors, TChangeEvent } from "../types";
+import { TFormData, TValidationErrors, TChangeEvent } from "../types";
 
 type TripProps = {
 	formData: TFormData;
 	onInputChange: TChangeEvent;
-	errors: TErrors;
+	validationErrors: TValidationErrors;
 };
 
-export default function Trip({ formData, onInputChange, errors }: TripProps) {
+export default function Trip({
+	formData,
+	onInputChange,
+	validationErrors,
+}: TripProps) {
 	return (
 		<Box
 			id="Trip"
@@ -24,8 +28,8 @@ export default function Trip({ formData, onInputChange, errors }: TripProps) {
 				name="distance"
 				value={formData.distance}
 				onChange={onInputChange}
-				error={!!errors.distance}
-				helperText={errors.distance}
+				error={!!validationErrors.distance}
+				helperText={validationErrors.distance}
 				slotProps={{
 					htmlInput: {
 						type: "text",

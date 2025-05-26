@@ -1,14 +1,18 @@
 import React from "react";
 import { Box, TextField } from "@mui/material";
-import { TFormData, TErrors, TChangeEvent } from "../types";
+import { TFormData, TValidationErrors, TChangeEvent } from "../types";
 
 type FuelProps = {
 	onInputChange: TChangeEvent;
 	formData: TFormData;
-	errors: TErrors;
+	validationErrors: TValidationErrors;
 };
 
-export default function Fuel({ formData, onInputChange, errors }: FuelProps) {
+export default function Fuel({
+	formData,
+	onInputChange,
+	validationErrors,
+}: FuelProps) {
 	return (
 		<Box
 			id="Fuel"
@@ -24,8 +28,8 @@ export default function Fuel({ formData, onInputChange, errors }: FuelProps) {
 				name="fuelEfficiency"
 				value={formData.fuelEfficiency}
 				onChange={onInputChange}
-				error={!!errors.fuelEfficiency}
-				helperText={errors.fuelEfficiency}
+				error={!!validationErrors.fuelEfficiency}
+				helperText={validationErrors.fuelEfficiency}
 				slotProps={{
 					htmlInput: {
 						type: "text",
@@ -40,8 +44,8 @@ export default function Fuel({ formData, onInputChange, errors }: FuelProps) {
 				name="fuelPrice"
 				value={formData.fuelPrice}
 				onChange={onInputChange}
-				error={!!errors.fuelPrice}
-				helperText={errors.fuelPrice}
+				error={!!validationErrors.fuelPrice}
+				helperText={validationErrors.fuelPrice}
 				slotProps={{
 					htmlInput: {
 						type: "text",

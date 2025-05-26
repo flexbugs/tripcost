@@ -5,17 +5,19 @@ import CalcPriceButton from "./components/CalcPriceButton";
 import Trip from "./components/Trip";
 import Fuel from "./components/Fuel";
 import Price from "./components/Price";
-import { TFormData, TErrors, TPrice, TChangeEvent } from "./types";
+import { TFormData, TValidationErrors, TPrice, TChangeEvent } from "./types";
 
 export default function App() {
-	const [fuelData, setFuelData] = useState([]);
+	const [fuelData, setFuelData] = useState();
 	const [formData, setFormData] = useState<TFormData>({
 		distance: "",
 		twoWayTrip: false,
 		fuelEfficiency: "",
 		fuelPrice: "",
 	});
-	const [errors, setErrors] = useState<TErrors>({});
+	const [validationErrors, setValidationErrors] = useState<TValidationErrors>(
+		{}
+	);
 	const [price, setPrice] = useState<TPrice>(0);
 
 	useEffect(() => {
@@ -49,7 +51,7 @@ export default function App() {
 		const fuelEfficiency = parseFloat(formData.fuelEfficiency);
 		const fuelPrice = parseFloat(formData.fuelPrice);
 
-		const newErrors: TErrors = {};
+		const newErrors: TValidationErrors = {};
 
 		if (!formData.distance) {
 			newErrors.distance = "Please set a distance";
@@ -76,12 +78,12 @@ export default function App() {
 		}
 
 		if (Object.keys(newErrors).length > 0) {
-			setErrors(newErrors);
+			setValidationErrors(newErrors);
 			setPrice("Error!");
 			return;
 		}
 
-		setErrors({});
+		setValidationErrors({});
 
 		const basePrice = (distance / fuelEfficiency) * fuelPrice;
 		const tripPrice = parseFloat(basePrice.toFixed(2));
@@ -115,12 +117,12 @@ export default function App() {
 						<Trip
 							formData={formData}
 							onInputChange={handleInputChange}
-							errors={errors}
+							validationErrors={validationErrors}
 						/>
 						<Fuel
 							formData={formData}
 							onInputChange={handleInputChange}
-							errors={errors}
+							validationErrors={validationErrors}
 						/>
 						<CalcPriceButton />
 					</Box>

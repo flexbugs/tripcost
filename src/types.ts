@@ -5,7 +5,9 @@ export type TFormData = {
 	fuelPrice: string;
 };
 
-export type TErrors = {
+export type TFuelData = {};
+
+export type TValidationErrors = {
 	distance?: string;
 	fuelEfficiency?: string;
 	fuelPrice?: string;
