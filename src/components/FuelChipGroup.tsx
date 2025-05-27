@@ -15,6 +15,7 @@ export default function FuelChipGroup({
 	if (!fuelData) return null;
 
 	const prices = fuelData.prices;
+	const custom = "Custom";
 
 	return (
 		<Box sx={{ display: "flex", flexDirection: "row", gap: 1 }}>
@@ -23,15 +24,19 @@ export default function FuelChipGroup({
 				<Chip
 					key={fuelType}
 					label={fuelType}
+					variant={selectedFuelType === fuelType ? "filled" : "outlined"}
+					color={selectedFuelType === fuelType ? "primary" : "default"}
 					clickable={true}
 					onClick={() => onSelectFuelType(fuelType as TSelectedFuelTypes)}
 				/>
 			))}
 			{/* Custom input option */}
 			<Chip
-				key="Custom"
-				label="Custom"
-				onClick={() => onSelectFuelType("Custom")}
+				key={custom}
+				label={custom}
+				variant={selectedFuelType === custom ? "filled" : "outlined"}
+				color={selectedFuelType === custom ? "primary" : "default"}
+				onClick={() => onSelectFuelType(custom)}
 			/>
 		</Box>
 	);
