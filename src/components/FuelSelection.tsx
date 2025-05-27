@@ -82,7 +82,7 @@ export default function FuelSelection({
 					<br />
 					{fuelData?.prices[selectedFuelType]} kr/liter
 					<br />
-					Kilde: Mock API. Opdateret: {fuelData?.date}
+					Source: Mock API. Updated: {fuelData?.date}
 				</Typography>
 			)}
 		</>
