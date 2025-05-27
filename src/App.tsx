@@ -48,6 +48,20 @@ export default function App() {
 		fetchFuelPrices();
 	}, []);
 
+	useEffect(() => {
+		if (!fuelData) return;
+
+		if (selectedFuelType === "Custom") return;
+
+		const price = fuelData.prices[selectedFuelType];
+		if (price) {
+			setFormData({
+				...formData,
+				fuelPrice: price.toString(),
+			});
+		}
+	}, [selectedFuelType, fuelData]);
+
 	const handleInputChange: TChangeEvent = (e) => {
 		const { name, type, value, checked } = e.target;
 		setFormData({
