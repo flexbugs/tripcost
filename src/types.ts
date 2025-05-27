@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export type TFormData = {
 	distance: string;
 	twoWayTrip: boolean;
@@ -31,3 +33,5 @@ export type TApiError = string | null;
 export type TPrice = string | number;
 
 export type TChangeEvent = (e: React.ChangeEvent<HTMLInputElement>) => void;
+
+export type TOnSelectFuelType = Dispatch<SetStateAction<TSelectedFuelTypes>>;

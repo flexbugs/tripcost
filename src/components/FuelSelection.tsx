@@ -7,7 +7,9 @@ import {
 	TChangeEvent,
 	TValidationErrors,
 	TSelectedFuelTypes,
+	TOnSelectFuelType,
 } from "../types";
+import FuelChipGroup from "./FuelChipGroup";
 
 type FuelSelectionProps = {
 	apiError: TApiError;
@@ -16,6 +18,7 @@ type FuelSelectionProps = {
 	onInputChange: TChangeEvent;
 	validationErrors: TValidationErrors;
 	selectedFuelType: TSelectedFuelTypes;
+	onSelectFuelType: TOnSelectFuelType;
 };
 
 export default function FuelSelection({
@@ -25,6 +28,7 @@ export default function FuelSelection({
 	onInputChange,
 	validationErrors,
 	selectedFuelType,
+	onSelectFuelType,
 }: FuelSelectionProps) {
 	// Loading view
 	if (fuelData === null && apiError === null) {
@@ -48,7 +52,11 @@ export default function FuelSelection({
 	// API price selection/custom input view
 	return (
 		<>
-			{/* <ChipGroup /> */}
+			<FuelChipGroup
+				fuelData={fuelData}
+				selectedFuelType={selectedFuelType}
+				onSelectFuelType={onSelectFuelType}
+			></FuelChipGroup>
 			{selectedFuelType === "Custom" ? (
 				// User inputs price
 				<TextField

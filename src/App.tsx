@@ -138,6 +138,7 @@ export default function App() {
 							onInputChange={handleInputChange}
 							validationErrors={validationErrors}
 							selectedFuelType={selectedFuelType}
+							onSelectFuelType={setSelectedFuelType}
 						/>
 						<CalcPriceButton />
 					</Box>

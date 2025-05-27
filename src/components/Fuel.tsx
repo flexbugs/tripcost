@@ -6,6 +6,7 @@ import {
 	TChangeEvent,
 	TApiError,
 	TSelectedFuelTypes,
+	TOnSelectFuelType,
 } from "../types";
 import FuelSelection from "./FuelSelection";
 
@@ -16,6 +17,7 @@ type FuelProps = {
 	onInputChange: TChangeEvent;
 	validationErrors: TValidationErrors;
 	selectedFuelType: TSelectedFuelTypes;
+	onSelectFuelType: TOnSelectFuelType;
 };
 
 export default function Fuel({
@@ -25,6 +27,7 @@ export default function Fuel({
 	onInputChange,
 	validationErrors,
 	selectedFuelType,
+	onSelectFuelType,
 }: FuelProps) {
 	return (
 		<Box
@@ -58,6 +61,7 @@ export default function Fuel({
 				onInputChange={onInputChange}
 				validationErrors={validationErrors}
 				selectedFuelType={selectedFuelType}
+				onSelectFuelType={onSelectFuelType}
 			/>
 		</Box>
 	);
