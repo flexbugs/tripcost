@@ -82,7 +82,7 @@ export default function App() {
 		}
 
 		if (!formData.fuelPrice) {
-			newErrors.fuelPrice = "Please set fuel efficiency";
+			newErrors.fuelPrice = "Please set fuel price";
 		} else if (isNaN(fuelPrice)) {
 			newErrors.fuelPrice = "Must be a number";
 		} else if (fuelPrice < 1) {
