@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Checkbox, FormControlLabel, TextField } from "@mui/material";
 import { TFormData, TValidationErrors, TChangeEvent } from "../types";
 
