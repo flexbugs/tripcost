@@ -1,5 +1,4 @@
-import { CircularProgress, TextField, Typography } from "@mui/material";
-import FieldCustomFuelPrice from "./FieldCustomFuelPrice";
+import { CircularProgress, Typography } from "@mui/material";
 import {
 	TApiError,
 	TFormData,
@@ -10,6 +9,7 @@ import {
 	TOnSelectFuelType,
 } from "../types";
 import FuelChipGroup from "./FuelChipGroup";
+import CustomTextField from "./CustomTextField";
 
 type FuelSelectionProps = {
 	apiError: TApiError;
@@ -40,7 +40,9 @@ export default function FuelSelection({
 		return (
 			<>
 				<Typography color="error">{apiError}</Typography>
-				<FieldCustomFuelPrice
+				<CustomTextField
+					name="fuelPrice"
+					label="Fuel price (kr/liter) *"
 					formData={formData}
 					onInputChange={onInputChange}
 					validationErrors={validationErrors}
@@ -59,22 +61,13 @@ export default function FuelSelection({
 			></FuelChipGroup>
 			{selectedFuelType === "Custom" ? (
 				// User inputs price
-				<TextField
-					aria-required
-					label="Fuel price (kr/liter) *"
+				<CustomTextField
 					name="fuelPrice"
-					value={formData.fuelPrice}
-					onChange={onInputChange}
-					error={!!validationErrors.fuelPrice}
-					helperText={validationErrors.fuelPrice}
-					slotProps={{
-						htmlInput: {
-							type: "text",
-							inputMode: "numeric",
-							pattern: "[0-9]*",
-						},
-					}}
-				></TextField>
+					label="Fuel price (kr/liter) *"
+					formData={formData}
+					onInputChange={onInputChange}
+					validationErrors={validationErrors}
+				/>
 			) : (
 				// Price is from API: Display price data
 				<Typography>

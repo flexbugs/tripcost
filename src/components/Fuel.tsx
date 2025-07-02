@@ -1,4 +1,4 @@
-import { Box, TextField } from "@mui/material";
+import { Box } from "@mui/material";
 import {
 	TFormData,
 	TFuelData,
@@ -9,6 +9,7 @@ import {
 	TOnSelectFuelType,
 } from "../types";
 import FuelSelection from "./FuelSelection";
+import CustomTextField from "./CustomTextField";
 
 type FuelProps = {
 	apiError: TApiError;
@@ -38,22 +39,14 @@ export default function Fuel({
 				gap: 2,
 			}}
 		>
-			<TextField
-				aria-required
-				label="Fuel efficiency (km/liter) *"
+			<CustomTextField
 				name="fuelEfficiency"
-				value={formData.fuelEfficiency}
-				onChange={onInputChange}
-				error={!!validationErrors.fuelEfficiency}
-				helperText={validationErrors.fuelEfficiency}
-				slotProps={{
-					htmlInput: {
-						type: "text",
-						inputMode: "numeric",
-						pattern: "[0-9]*",
-					},
-				}}
-			></TextField>
+				label="Fuel efficiency (km/liter) *"
+				formData={formData}
+				onInputChange={onInputChange}
+				validationErrors={validationErrors}
+			/>
+
 			<FuelSelection
 				fuelData={fuelData}
 				apiError={apiError}

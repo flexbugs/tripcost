@@ -1,5 +1,6 @@
-import { Box, Checkbox, FormControlLabel, TextField } from "@mui/material";
+import { Box, Checkbox, FormControlLabel } from "@mui/material";
 import { TFormData, TValidationErrors, TChangeEvent } from "../types";
+import CustomTextField from "./CustomTextField";
 
 type TripProps = {
 	formData: TFormData;
@@ -21,22 +22,13 @@ export default function Trip({
 				gap: 2,
 			}}
 		>
-			<TextField
-				aria-required
+			<CustomTextField
+				name="tripDistance"
 				label="Trip distance (km) *"
-				name="distance"
-				value={formData.distance}
-				onChange={onInputChange}
-				error={!!validationErrors.distance}
-				helperText={validationErrors.distance}
-				slotProps={{
-					htmlInput: {
-						type: "text",
-						inputMode: "numeric",
-						pattern: "[0-9]*",
-					},
-				}}
-			></TextField>
+				formData={formData}
+				onInputChange={onInputChange}
+				validationErrors={validationErrors}
+			/>
 			<FormControlLabel
 				control={
 					<Checkbox
